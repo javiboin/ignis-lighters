@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
@@ -8,7 +9,7 @@ const Header = () => {
     <header className="ecommerce-header">
       <div className="header-container">
         {/* LOGO */}
-        <div className="brand-logo">
+        <Link to="/" className="brand-logo" style={{ textDecoration: 'none' }}>
           <svg className="fire-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 22C12 22 18 16.5 18 11.5C18 7.5 14.5 4 12 2C9.5 4 6 7.5 6 11.5C6 16.5 12 22 12 22Z" fill="url(#fireGradient)" />
             <path d="M12 21.5C12 21.5 16 17 16 13C16 10 13.5 7.5 12 6C10.5 7.5 8 10 8 13C8 17 12 21.5 12 21.5Z" fill="#FFAA00" />
@@ -20,15 +21,15 @@ const Header = () => {
             </defs>
           </svg>
           <span className="brand-text">Ignis</span>
-        </div>
+        </Link>
 
         {/* NAVIGATION */}
         <nav className="desktop-nav">
           <ul className="nav-list">
-            <li className="nav-item"><a href="#inicio" className="nav-link active">Inicio</a></li>
-            <li className="nav-item"><a href="#coleccion" className="nav-link">Colección</a></li>
-            <li className="nav-item"><a href="#premium" className="nav-link">Premium</a></li>
-            <li className="nav-item"><a href="#nosotros" className="nav-link">Nosotros</a></li>
+            <li className="nav-item"><Link to="/" className="nav-link">Inicio</Link></li>
+            <li className="nav-item"><Link to="/coleccion" className="nav-link">Colección</Link></li>
+            <li className="nav-item"><Link to="/premium" className="nav-link">Premium</Link></li>
+            <li className="nav-item"><Link to="/nosotros" className="nav-link">Nosotros</Link></li>
           </ul>
         </nav>
 
