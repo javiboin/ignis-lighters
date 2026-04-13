@@ -3,6 +3,7 @@ import './Header.css';
 
 const Header = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isProfileActive, setIsProfileActive] = useState(false);
   return (
     <header className="ecommerce-header">
       <div className="header-container">
@@ -34,14 +35,14 @@ const Header = () => {
         {/* ACTIONS */}
         <div className="header-actions">
           <div className={`search-container ${isSearchActive ? 'active' : ''}`}>
-            <input 
-              type="text" 
-              className="search-input" 
+            <input
+              type="text"
+              className="search-input"
               placeholder="Buscar encendedores..."
               autoFocus={isSearchActive}
             />
-            <button 
-              className="icon-btn search-btn" 
+            <button
+              className="icon-btn search-btn"
               aria-label="Buscar"
               onClick={() => setIsSearchActive(!isSearchActive)}
             >
@@ -52,12 +53,21 @@ const Header = () => {
             </button>
           </div>
 
-          <button className="icon-btn profile-btn" aria-label="Perfil">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </button>
+          <div className="profile-container">
+            <button
+              className="icon-btn profile-btn"
+              aria-label="Perfil"
+              onClick={() => setIsProfileActive(!isProfileActive)}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
+            <div className={`profile-dropdown ${isProfileActive ? 'active' : ''}`}>
+              <a href="#login" className="dropdown-link">Iniciar sesión / Registrarse</a>
+            </div>
+          </div>
 
           <button className="icon-btn cart-btn" aria-label="Carrito de compras">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
