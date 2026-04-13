@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import './Header.css';
 
 const Header = () => {
+  const [isSearchActive, setIsSearchActive] = useState(false);
   return (
     <header className="ecommerce-header">
       <div className="header-container">
@@ -31,12 +33,24 @@ const Header = () => {
 
         {/* ACTIONS */}
         <div className="header-actions">
-          <button className="icon-btn search-btn" aria-label="Buscar">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </button>
+          <div className={`search-container ${isSearchActive ? 'active' : ''}`}>
+            <input 
+              type="text" 
+              className="search-input" 
+              placeholder="Buscar encendedores..."
+              autoFocus={isSearchActive}
+            />
+            <button 
+              className="icon-btn search-btn" 
+              aria-label="Buscar"
+              onClick={() => setIsSearchActive(!isSearchActive)}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </div>
 
           <button className="icon-btn profile-btn" aria-label="Perfil">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
