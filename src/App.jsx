@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import AboutUs from './pages/AboutUs'
 import Premium from './pages/Premium'
+import Collection from './pages/Collection'
 import Footer from './components/Footer'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/nosotros" element={<AboutUs />} />
           <Route path="/premium" element={<Premium />} />
+          <Route path="/coleccion" element={<Collection />} />
         </Routes>
       </main>
       <Footer />
