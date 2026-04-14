@@ -1,14 +1,22 @@
+import { useState } from 'react';
 import './Collection.css';
 
 const Collection = () => {
+  const [activeFilter, setActiveFilter] = useState('Todos');
   const products = [
     { id: 1, name: 'Ignis Clásico Plata', price: '$49.99', category: 'Clásico' },
     { id: 2, name: 'Ignis Matte Negro', price: '$54.99', category: 'Moderno' },
-    { id: 3, name: 'Ignis Fuego Azul', price: '$59.99', category: 'Sport' },
+    { id: 3, name: 'Ignis Fuego Azul', price: '$59.99', category: 'Clásico' },
     { id: 4, name: 'Ignis Vintage Oro', price: '$89.99', category: 'Vintage' },
     { id: 5, name: 'Ignis Carbon Fiber', price: '$79.99', category: 'Moderno' },
-    { id: 6, name: 'Ignis Slim Rose', price: '$64.99', category: 'Slim' }
+    { id: 6, name: 'Ignis Vintage Rose', price: '$64.99', category: 'Vintage' }
   ];
+
+  const categories = ['Todos', 'Clásico', 'Moderno', 'Vintage'];
+
+  const filteredProducts = activeFilter === 'Todos'
+    ? products
+    : products.filter(product => product.category === activeFilter);
 
   return (
     <section className="collection-page">
@@ -20,14 +28,19 @@ const Collection = () => {
       </div>
 
       <div className="collection-filters">
-        <button className="filter-btn active">Todos</button>
-        <button className="filter-btn">Clásico</button>
-        <button className="filter-btn">Moderno</button>
-        <button className="filter-btn">Vintage</button>
+        {categories.map(category => (
+          <button
+            key={category}
+            className={`filter-btn ${activeFilter === category ? 'active' : ''}`}
+            onClick={() => setActiveFilter(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
 
       <div className="collection-grid">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div className="compact-card" key={product.id}>
             <div className="compact-image-wrapper">
               <img src="/hero-lighter.png" alt={product.name} className="compact-img" />
