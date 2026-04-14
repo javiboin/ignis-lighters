@@ -8,7 +8,6 @@
 
 ## 🛠️ Tecnologías
 
-Este proyecto está construido aprovechando las mejores tecnologías actuales de frontend:
 - **[React](https://reactjs.org/)** (Librería principal UI)
 - **[Vite](https://vitejs.dev/)** (Herramienta de compilación veloz)
 - **[React Router DOM](https://reactrouter.com/)** (Navegación y ruteo interno)
