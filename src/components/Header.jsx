@@ -5,6 +5,7 @@ import './Header.css';
 const Header = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isProfileActive, setIsProfileActive] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   return (
     <header className="ecommerce-header">
       <div className="header-container">
@@ -70,7 +71,7 @@ const Header = () => {
             </div>
           </div>
 
-          <button className="icon-btn cart-btn" aria-label="Carrito de compras">
+          <button className="icon-btn cart-btn" aria-label="Carrito de compras" onClick={() => setIsCartOpen(true)}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
               <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -78,6 +79,55 @@ const Header = () => {
             </svg>
             <span className="cart-badge">3</span>
           </button>
+        </div>
+      </div>
+
+      {/* Cart Offcanvas */}
+      <div className={`cart-overlay ${isCartOpen ? 'active' : ''}`} onClick={() => setIsCartOpen(false)}></div>
+      <div className={`cart-offcanvas ${isCartOpen ? 'active' : ''}`}>
+        <div className="cart-header">
+          <h2>Tu Carrito</h2>
+          <button className="close-cart-btn" onClick={() => setIsCartOpen(false)} aria-label="Cerrar carrito">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div className="cart-body">
+          <div className="cart-item">
+            <img src="/hero-lighter.png" alt="Ignis Clásico" className="cart-item-img" />
+            <div className="cart-item-info">
+              <h4>Ignis Clásico Plata</h4>
+              <p className="cart-item-price">$49.99</p>
+              <div className="cart-item-qty">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+              </div>
+            </div>
+            <button className="remove-item-btn" aria-label="Eliminar">&times;</button>
+          </div>
+          <div className="cart-item">
+            <img src="/premium-black.png" alt="Obsidian Black" className="cart-item-img" />
+            <div className="cart-item-info">
+              <h4>Obsidian Black</h4>
+              <p className="cart-item-price">$249.99</p>
+              <div className="cart-item-qty">
+                <button>-</button>
+                <span>2</span>
+                <button>+</button>
+              </div>
+            </div>
+            <button className="remove-item-btn" aria-label="Eliminar">&times;</button>
+          </div>
+        </div>
+        <div className="cart-offcanvas-footer">
+          <div className="cart-total">
+            <span>Subtotal</span>
+            <span className="total-price">$549.97</span>
+          </div>
+          <button className="checkout-btn">Finalizar Compra</button>
         </div>
       </div>
     </header>
