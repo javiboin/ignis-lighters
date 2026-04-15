@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import './Premium.css';
 
 const Premium = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const premiumProducts = [
     {
       id: 1,
@@ -25,6 +28,18 @@ const Premium = () => {
     }
   ];
 
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === premiumProducts.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? premiumProducts.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
     <section className="premium-page">
       {/* Hero Section */}
@@ -36,24 +51,56 @@ const Premium = () => {
         </p>
       </div>
 
-      {/* Gallery Section */}
-      <div className="premium-gallery">
-        {premiumProducts.map(product => (
-          <div className="premium-card" key={product.id}>
-            <div className="card-image-wrapper">
-              <img src={product.image} alt={product.name} className="product-img" />
-              <div className="glowing-backdrop"></div>
-            </div>
-            <div className="card-info">
-              <h3 className="product-name">{product.name}</h3>
-              <p className="product-desc">{product.desc}</p>
-              <div className="card-footer">
-                <span className="price">{product.price}</span>
-                <button className="add-btn">Añadir al Carrito</button>
+      {/* Carousel Section */}
+      <div className="premium-carousel-container">
+        
+        <button className="carousel-control prev" onClick={prevSlide} aria-label="Anterior">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <div className="premium-carousel-track">
+          {premiumProducts.map((product, index) => (
+            <div 
+              className="premium-card-wrapper" 
+              key={product.id}
+              style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
+            >
+              <div className="premium-card">
+                <div className="card-image-wrapper">
+                  <img src={product.image} alt={product.name} className="product-img" />
+                  <div className="glowing-backdrop"></div>
+                </div>
+                <div className="card-info">
+                  <h3 className="product-name">{product.name}</h3>
+                  <p className="product-desc">{product.desc}</p>
+                  <div className="card-footer">
+                    <span className="price">{product.price}</span>
+                    <button className="add-btn">Añadir al Carrito</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <button className="carousel-control next" onClick={nextSlide} aria-label="Siguiente">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <div className="carousel-indicators">
+          {premiumProducts.map((_, index) => (
+            <button 
+              key={index} 
+              className={`indicator ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => setCurrentIndex(index)}
+              aria-label={`Ir a tarjeta ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
