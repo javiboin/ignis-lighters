@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import './Header.css';
 
 const Header = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isProfileActive, setIsProfileActive] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const { cartItems, updateQuantity, removeFromCart, cartTotal, cartCount } = useCart();
   return (
     <header className="ecommerce-header">
       <div className="header-container">
@@ -77,7 +79,7 @@ const Header = () => {
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg>
-            <span className="cart-badge">3</span>
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </button>
         </div>
       </div>
@@ -95,37 +97,30 @@ const Header = () => {
           </button>
         </div>
         <div className="cart-body">
-          <div className="cart-item">
-            <img src="/hero-lighter.png" alt="Ignis Clásico" className="cart-item-img" />
-            <div className="cart-item-info">
-              <h4>Ignis Clásico Plata</h4>
-              <p className="cart-item-price">$49.99</p>
-              <div className="cart-item-qty">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
+          {cartItems.length === 0 ? (
+            <div style={{ textAlign: 'center', color: '#a1a1aa', marginTop: '2rem' }}>Tu carrito está vacío.</div>
+          ) : (
+            cartItems.map((item) => (
+              <div className="cart-item" key={item.id}>
+                <img src={item.image || "/hero-lighter.png"} alt={item.name} className="cart-item-img" />
+                <div className="cart-item-info">
+                  <h4>{item.name}</h4>
+                  <p className="cart-item-price">{item.price}</p>
+                  <div className="cart-item-qty">
+                    <button onClick={() => updateQuantity(item.id, -1)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+                  </div>
+                </div>
+                <button className="remove-item-btn" onClick={() => removeFromCart(item.id)} aria-label="Eliminar">&times;</button>
               </div>
-            </div>
-            <button className="remove-item-btn" aria-label="Eliminar">&times;</button>
-          </div>
-          <div className="cart-item">
-            <img src="/premium-black.png" alt="Obsidian Black" className="cart-item-img" />
-            <div className="cart-item-info">
-              <h4>Obsidian Black</h4>
-              <p className="cart-item-price">$249.99</p>
-              <div className="cart-item-qty">
-                <button>-</button>
-                <span>2</span>
-                <button>+</button>
-              </div>
-            </div>
-            <button className="remove-item-btn" aria-label="Eliminar">&times;</button>
-          </div>
+            ))
+          )}
         </div>
         <div className="cart-offcanvas-footer">
           <div className="cart-total">
             <span>Subtotal</span>
-            <span className="total-price">$549.97</span>
+            <span className="total-price">${cartTotal.toFixed(2)}</span>
           </div>
           <button className="checkout-btn">Finalizar Compra</button>
         </div>

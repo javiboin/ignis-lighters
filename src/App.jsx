@@ -5,10 +5,11 @@ import AboutUs from './pages/AboutUs'
 import Premium from './pages/Premium'
 import Collection from './pages/Collection'
 import Footer from './components/Footer'
+import { CartProvider } from './context/CartContext'
 
 function App() {
   return (
-    <>
+    <CartProvider>
       <Header />
       <main>
         <Routes>
@@ -19,7 +20,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-    </>
+    </CartProvider>
   )
 }
 
